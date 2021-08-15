@@ -1,0 +1,33 @@
+[package]
+authors = ["Felipe M. dos. S. Monteiro <fmarkson@outlook.com>"]
+description = "A simple linear solver in WebAssembly"
+edition = "2018"
+license = "Apache-2.0/MIT"
+name = "axb"
+repository = "https://github.com/felipemarkson"
+version = "0.1.0"
+
+[features]
+default = ["console_error_panic_hook"]
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+itertools = "0.10.0"
+nalgebra = {version = "0.29", default-features = false, features = ["alloc", "sparse"]}
+nalgebra-sparse = "0.5"
+num = {version = "0.4", default-features = false}
+serde = {version = "1.x", features = ["derive"]}
+wasm-bindgen = {version = "0.2", features = ["serde-serialize"]}
+web-sys = {version = "0.3", features = ["Window", "Document", "HtmlBodyElement", "console"]}
+console_error_panic_hook = { version = "0.1", optional = true }
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3"
+
+[profile.release]
+# Tell `rustc` to optimize for small code size.
+# debug = true
+lto = true
+opt-level = "s"
